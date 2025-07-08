@@ -1,0 +1,26 @@
+/* Match Tailwind's colors */
+:root {
+    --primary: #631bff;
+    --purple: #9333ea;
+    --green: #16a34a;
+    --orange: #ea580c;
+    --yellow: #facc15;
+}
+
+.bg-purple {
+    background-color: var(--purple) !important;
+}
+
+.text-purple {
+    color: var(--purple) !important;
+}
+
+/* Apply Open Sans font */
+#webcrumbs {
+    font-family: 'Open Sans', sans-serif !important;
+    font-size: 16px !important;
+}
+a{
+    font-style: none;
+    text-decoration: none;
+}
