@@ -95,7 +95,7 @@ course-app/
 ├── frontend/       # React frontend
 │   └── src/
 ├── README.md
-└── screenshots/
+└── gifs/
 ```
 
 ---
