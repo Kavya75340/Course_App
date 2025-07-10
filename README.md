@@ -2,17 +2,20 @@
 
 A Full Stack Web Application for managing online courses — built using **React**, **Spring Boot**, and **MySQL**.
 
-## 📸 Screenshots
+## 🎞️ Demo GIFs
 
-| Home Page                     | Add Course                         | Explore Courses                     |
-| ----------------------------- | ---------------------------------- | ----------------------------------- |
-| ![Home](screenshots/home.gif) | ![Add](screenshots/add-course.gif) | ![Explore](screenshots/explore.gif) |
+| Feature          | Preview                      |
+| ---------------- | ---------------------------- |
+| Home Page        | ![](gifs/home.gif)           |
+| Add Blog         | ![](gifs/add-course.gif)     |
+| Explore + Delete | ![](gifs/explore-delete.gif) |
 
 ## 🚀 Features
 
 -   🏠 **Home Page** – Welcome screen with intro and navigation
 -   ➕ **Add Course** – Add a new course with details like title, description, etc.
 -   🔍 **Explore Courses** – View all available courses
+    -   🗑️ **Delete Course** – Delete any course directly from the course card
 -   📞 **Contact Me** – Form to contact developer/admin
 -   ℹ️ **About Page** – Info about the project or team
 
