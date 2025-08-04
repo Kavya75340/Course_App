@@ -4,11 +4,15 @@ import axios from "axios";
 import base_url from "../api/bootapi";
 import { toast } from "react-toastify";
 import { Button } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
 
-const AddCourse = () => {
+const UpdateCourse = () => {
     useEffect(() => {
-        document.title = "Add Course";
+        document.title = "Update Course";
     }, []);
+
+    const location = useLocation();
+    const id = location.state?.id;
 
     const [course, setCourse] = useState({
         title: "",
@@ -17,9 +21,33 @@ const AddCourse = () => {
         description: "",
         imageLink: "",
         videoLink: "",
+        rating: 0,
+        likes: [],
+        comments: [],
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    // Load existing course data from backend
+    useEffect(() => {
+        if (id) {
+            axios
+                .get(`${base_url}/courses/${id}`)
+                .then((res) => {
+                    const courseData = res.data;
+                    setCourse({
+                        ...courseData,
+                        tags: courseData.tags ? courseData.tags.join(", ") : "",
+                        likes: courseData.likes || [],
+                        comments: courseData.comments || [],
+                    });
+                })
+                .catch((err) => {
+                    console.error("Failed to load course:", err);
+                    toast.error("Failed to load course data");
+                });
+        }
+    }, [id]);
 
     const handleInputChange = (e) => {
         const { id, value } = e.target;
@@ -31,9 +59,9 @@ const AddCourse = () => {
 
     const handleForm = (e) => {
         e.preventDefault();
+
         if (
             !course.title ||
-            !course.author ||
             !course.author ||
             !course.description ||
             !course.imageLink ||
@@ -42,40 +70,38 @@ const AddCourse = () => {
             toast.warn("Please fill out all fields");
             return;
         }
+
         const payload = {
             ...course,
-            id: undefined, // remove id for new course
-            rating: 0,
+            id, // keep ID for update
             tags: course.tags
-                ? course.tags.split(",").map((tag) => tag.trim()) // convert string → array
+                ? course.tags.split(",").map((tag) => tag.trim())
                 : [],
+            likes: course.likes || [],
+            comments: course.comments || [],
         };
-        postDataToServer(payload);
+
+        updateDataToServer(id, payload);
     };
 
-    const postDataToServer = (data) => {
-        console.log(data);
+    const updateDataToServer = (id, data) => {
         setIsSubmitting(true);
-        axios.post(`${base_url}/courses`, data).then(
-            (response) => {
-                toast.success("Course added successfully");
-                console.log(response);
+
+        axios
+            .put(`${base_url}/courses/${id}`, data)
+            .then((response) => {
+                toast.success("Course updated successfully");
+                console.log(response.data);
                 setIsSubmitting(false);
-                setCourse({
-                    title: "",
-                    author: "",
-                    tags: "",
-                    description: "",
-                    imageLink: "",
-                    videoLink: "",
-                });
-            },
-            (error) => {
-                console.log(error);
-                toast.error("Something went wrong");
+            })
+            .catch((error) => {
+                console.error(
+                    "Update failed:",
+                    error.response?.data || error.message
+                );
+                toast.error("Something went wrong while updating");
                 setIsSubmitting(false);
-            }
-        );
+            });
     };
 
     const clearForm = () => {
@@ -86,6 +112,9 @@ const AddCourse = () => {
             description: "",
             imageLink: "",
             videoLink: "",
+            rating: 0,
+            likes: [],
+            comments: [],
         });
     };
 
@@ -95,7 +124,7 @@ const AddCourse = () => {
                 className="w-100 p-4 bg-white border rounded-4 shadow"
                 style={{ maxWidth: "700px" }}
             >
-                <h2 className="text-center mb-4 fw-semibold">Add New Course</h2>
+                <h2 className="text-center mb-4 fw-semibold">Update Course</h2>
                 <Form onSubmit={handleForm}>
                     <FormGroup className="mb-3">
                         <Label for="title" className="form-label fw-bold">
@@ -110,6 +139,7 @@ const AddCourse = () => {
                             onChange={handleInputChange}
                         />
                     </FormGroup>
+
                     <FormGroup className="mb-3">
                         <Label for="author" className="form-label fw-bold">
                             Author
@@ -123,7 +153,6 @@ const AddCourse = () => {
                             onChange={handleInputChange}
                         />
                     </FormGroup>
-                    {/* Tags */}
 
                     <FormGroup className="mb-3">
                         <Label for="tags" className="form-label fw-bold">
@@ -138,6 +167,7 @@ const AddCourse = () => {
                             onChange={handleInputChange}
                         />
                     </FormGroup>
+
                     <FormGroup className="mb-3">
                         <Label for="description" className="form-label fw-bold">
                             Description
@@ -152,6 +182,7 @@ const AddCourse = () => {
                             style={{ height: "120px" }}
                         />
                     </FormGroup>
+
                     <FormGroup className="mb-4">
                         <Label for="imageLink" className="form-label fw-bold">
                             Image URL
@@ -165,8 +196,9 @@ const AddCourse = () => {
                             onChange={handleInputChange}
                         />
                     </FormGroup>
+
                     <FormGroup className="mb-4">
-                        <Label for="imageLink" className="form-label fw-bold">
+                        <Label for="videoLink" className="form-label fw-bold">
                             Video URL
                         </Label>
                         <Input
@@ -178,6 +210,7 @@ const AddCourse = () => {
                             onChange={handleInputChange}
                         />
                     </FormGroup>
+
                     <div className="text-center">
                         <Button
                             type="submit"
@@ -186,10 +219,10 @@ const AddCourse = () => {
                         >
                             {isSubmitting ? (
                                 <>
-                                    <Spinner size="sm" /> Submitting...
+                                    <Spinner size="sm" /> Updating...
                                 </>
                             ) : (
-                                "Add Course"
+                                "Update Course"
                             )}
                         </Button>
                         <Button
@@ -197,7 +230,6 @@ const AddCourse = () => {
                             variant="outline-dark"
                             className="ms-3"
                             onClick={clearForm}
-                            outline
                         >
                             Clear
                         </Button>
@@ -208,4 +240,4 @@ const AddCourse = () => {
     );
 };
 
-export default AddCourse;
+export default UpdateCourse;

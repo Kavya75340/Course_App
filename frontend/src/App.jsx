@@ -9,6 +9,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router";
 import Header from "./components/Header.jsx";
 import About from "./components/About.jsx";
 import Contact from "./components/Contact.jsx";
+import CourseViewPage from "./components/CourseView.jsx";
+import CourseDetailedPage from "./components/CourseDetailedPage.jsx";
+import UpdateCourse from "./components/UpdateCourse.jsx";
+// import CourseViewPage from "./components/CourseViewBootstrapCombined.jsx";
 
 function App() {
     return (
@@ -25,8 +29,23 @@ function App() {
                             exact
                         />
                         <Route
+                            path="/update-course"
+                            element={<UpdateCourse />}
+                            exact
+                        />
+                        <Route
                             path="/view-courses"
-                            element={<AllCourses></AllCourses>}
+                            element={<AllCourses />}
+                            exact
+                        />
+                        <Route
+                            path="/course-view"
+                            element={<CourseViewPage />}
+                            exact
+                        ></Route>
+                        <Route
+                            path="/course-detailed"
+                            element={<CourseDetailedPage />}
                             exact
                         />
                         <Route path="/about" element={<About></About>} exact />

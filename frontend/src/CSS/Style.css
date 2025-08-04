@@ -1,0 +1,67 @@
+   .video-player {
+       background: linear-gradient(135deg, #1f2937, #111827);
+       aspect-ratio: 16/9;
+     }
+
+     .course-thumbnail {
+       background: linear-gradient(135deg, #1f2937, #111827);
+       aspect-ratio: 16/9;
+       width: 160px;
+       height: 90px;
+     }
+
+     .duration-overlay {
+       position: absolute;
+       bottom: 4px;
+       right: 4px;
+       background: rgba(0, 0, 0, 0.8);
+       color: white;
+       font-size: 0.75rem;
+       padding: 2px 4px;
+       border-radius: 2px;
+     }
+
+     .avatar-gradient {
+       background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+     }
+
+     .progress-red {
+       background-color: #dc3545;
+     }
+
+     .sidebar-item:hover {
+       background-color: #f8f9fa;
+     }
+
+     .sidebar-item:hover .course-title {
+       color: #0d6efd;
+     }
+
+     .like-btn.active {
+       background-color: #e3f2fd;
+       color: #1976d2;
+     }
+
+     .dislike-btn.active {
+       background-color: #ffebee;
+       color: #d32f2f;
+     }
+
+     .comment-avatar {
+       background: linear-gradient(135deg, #16a085, #3498db);
+     }
+
+     .user-avatar {
+       background: linear-gradient(135deg, #27ae60, #3498db);
+     }
+
+     .line-clamp-2 {
+       display: -webkit-box;
+       -webkit-line-clamp: 2;
+       -webkit-box-orient: vertical;
+       overflow: hidden;
+     }
+     .spinner-border {
+       width: 3rem;
+       height: 3rem;
+     }

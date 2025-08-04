@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { Spinner } from "reactstrap";
 import dummyCourses from "../data/dummyCourse";
 import { Form } from "react-bootstrap";
+// import { useNavigate } from "react-router-dom";
 
 const AllCourses = () => {
     useEffect(() => {
@@ -60,7 +61,6 @@ const AllCourses = () => {
         );
     };
 
-    // 🔍 Filter courses by title
     const filteredCourses = courses.filter((course) =>
         course.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
